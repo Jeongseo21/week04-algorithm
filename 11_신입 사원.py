@@ -2,33 +2,20 @@ import sys
 input = sys.stdin.readline
 
 T = int(input())
+
+
 for _ in range(T):
-    N = int(input())
-    ranks = []
-    for _ in range(N):
-        rank1, rank2 = map(int, input().split())
-        ranks.append([rank1, rank2, True])
-    ranks.sort(key=lambda x:x[0])
-    flag = True
-    for i in range(N):
-        if ranks[i][1] == 1:
-            flag = False
+    N = int(input().rstrip())
+    scores = [0 for _ in range(N+1)]
 
-            continue
-        if not flag:
-            ranks[i][2] = False
+    for _ in range(0, N):
+        i, j = map(int, input().split())
+        scores[i] = j
 
-    ranks.sort(key=lambda x:x[1])
-    flag = True
-    for i in range(N):
-        if ranks[i][0] == 1:
-            flag = False
-            continue
-        if not flag:
-            ranks[i][2] = False
-
-    answer = 0
-    for rank in ranks:
-        if rank[2]:
+    min = scores[1]
+    answer = 1
+    for i in range(2, N+1):
+        if scores[i] < min:
             answer += 1
+            min = scores[i]
     print(answer)
